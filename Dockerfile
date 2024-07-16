@@ -1,12 +1,13 @@
-FROM python:3.10-alpine
+FROM node:slim
 
 WORKDIR /app
 
-COPY app.py .
-COPY start.sh .
-
-RUN chmod +x start.sh
+COPY . .
 
 EXPOSE 3000
 
-CMD ["./start.sh"]
+RUN apt update -y &&\
+    chmod +x index.js &&\
+    npm install 
+    
+CMD ["node", "index.js"]
